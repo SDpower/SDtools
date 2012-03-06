@@ -19,43 +19,43 @@ class SplClassLoader {
      * namespace mapping
      * @var array
      */
-    static private $_namespaces;
+    static protected $_namespaces;
     
     /**
      * prefix mapping
      * @var array 
      */
-    static private $_prefix;
+    static protected $_prefix;
     
     /**
      * use IncludePath
      * @var boolen
      */
-    static private $_useIncludePath = FALSE;
+    static protected $_useIncludePath = FALSE;
     
     /**
      * fileExtension
      * @var string 
      */
-    static private $fileExtension = '.php';
+    static protected $fileExtension = '.php';
     
     /**
      * initialized flag
      * @var boolen
      */
-    static private $_initialized = FALSE;
+    static protected $_initialized = FALSE;
     
     /**
      * namespace 
      * @var array
      */
-    static private $_ns= array();
+    static protected $_ns= array();
     
     /**
      * uniq path
      * @var array
      */
-    static private $_uniq=array();
+    static protected $_uniq=array();
     
     const namespaceSeparator = "\\";
 
@@ -63,7 +63,7 @@ class SplClassLoader {
      * register to spl_autoload_register
      * @return boolen
      */
-    static private function register()
+    static protected function register()
     {
         return spl_autoload_register( __NAMESPACE__ .'\SplClassLoader::autoload');
     }
@@ -79,7 +79,7 @@ class SplClassLoader {
     
     /**
      * add namespace
-     *
+     * @throws \BadMethodCallException When wrong params
      * @param array $ns
      */
     static public function addNamespace($ns = array())
@@ -99,7 +99,7 @@ class SplClassLoader {
                 return;
             }
         }
-        throw new Exception("Wrong Call!!");
+        throw new \BadMethodCallException("Use SplClassLoader::addNamespace you must be given an array param");
     }
     
     /**
@@ -119,7 +119,7 @@ class SplClassLoader {
      * auto register
      * @return type 
      */
-    static private function init(){
+    static protected function init(){
         if (static::$_initialized) return;
         static::$_initialized=TRUE;
         static::register();
@@ -141,7 +141,7 @@ class SplClassLoader {
      * @param string $class
      * @return string|boolean 
      */
-    static private function findClass($class){
+    static protected function findClass($class){
         $fqcn=trim($class, "\\");
         $ns_arr=explode("\\", $fqcn);
         $file=str_replace("\\", DIRECTORY_SEPARATOR, $fqcn).static::$fileExtension;
@@ -185,7 +185,7 @@ class SplClassLoader {
      * @param string $ns
      * @param string $path
      */
-    static private function register_ns($ns, $path){
+    static protected function register_ns($ns, $path){
         static::init();
         $path=static::convPath($path);
         $ns=trim($ns, static::namespaceSeparator);
@@ -204,7 +204,7 @@ class SplClassLoader {
      * @param string $path
      * @return string 
      */
-    static private function convPath($path){
+    static protected function convPath($path){
         $r_path=realpath($path);
         return rtrim($r_path, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
     }
