@@ -19,7 +19,7 @@ class MemcacheCache extends AbstractCache {
      *
      * @param Memcache $memcache
      */
-    static public function setMemcache(Memcache $memcache)
+    static public function setMemcache(\Memcache $memcache)
     {
         static::$_memcache = $memcache;
     }
@@ -36,7 +36,7 @@ class MemcacheCache extends AbstractCache {
         return;
     }
     
-    public function getIds()
+    static public function getIds()
     {
         static::_initCheck();
         $keys = array();
@@ -60,25 +60,25 @@ class MemcacheCache extends AbstractCache {
         return $keys;
     }
 
-    protected function _doFetch($id)
+    static protected function _doFetch($id)
     {
         static::_initCheck();
         return static::$_memcache->get($id);
     }
 
-    protected function _doContains($id)
+    static protected function _doContains($id)
     {
         static::_initCheck();
         return (bool) static::$_memcache->get($id);
     }
 
-    protected function _doSave($id, $data, $lifeTime = 0)
+    static protected function _doSave($id, $data, $lifeTime = 0)
     {
         static::_initCheck();
         return static::$_memcache->set($id, $data, 0, (int) $lifeTime);
     }
 
-    protected function _doDelete($id)
+    static protected function _doDelete($id)
     {
         static::_initCheck();
         return static::$_memcache->delete($id);
