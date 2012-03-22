@@ -1,8 +1,8 @@
 <?php
 
-namespace ClassLoader;
+namespace SDtools\ClassLoader;
 
-require_once dirname(__FILE__) . '/../../../src/ClassLoader/CacheClassLoader.php';
+require_once dirname(__FILE__) . '/../../../../src/SDtools/ClassLoader/CacheClassLoader.php';
 
 /**
  * Test class for CacheClassLoader.
@@ -13,42 +13,42 @@ class CacheClassLoaderTest extends \PHPUnit_Framework_TestCase {
     
     public function __construct()
     {
-        $Lib_path =  realpath(__DIR__.'/../../../src');
-        CacheClassLoader::addNamespace(array('Cache' => $Lib_path));
+        $Lib_path =  realpath(__DIR__.'/../../../../src');
+        CacheClassLoader::addNamespace(array('SDtools' => $Lib_path));
     }
     
     public function testSetCacheByApcCache() {
-        $cache = "\\Cache\\ApcCache";
+        $cache = "\\SDtools\\Cache\\ApcCache";
         CacheClassLoader::SetCache($cache);
         is(CacheClassLoader::GetCache(),$cache);
-        $Lib_path =  realpath(__DIR__.'/../../');
+        $Lib_path =  realpath(__DIR__.'/../../../');
         CacheClassLoader::addNamespace(array('Lib' => $Lib_path));
         $foo = new \Lib\Foo_1();
         ok( $foo );
     }
     
     public function testSetCacheByMemcacheCache() {
-        $cache = "\\Cache\\MemcacheCache";
+        $cache = "\\SDtools\\Cache\\MemcacheCache";
         $memcache = new \Memcache;
         $memcache->connect('localhost', 11211) or die ("Could not connect");
         $cache::setMemcache($memcache);
         CacheClassLoader::SetCache($cache);
         is(CacheClassLoader::GetCache(),$cache);
-        $Lib_path =  realpath(__DIR__.'/../../');
+        $Lib_path =  realpath(__DIR__.'/../../../');
         CacheClassLoader::addNamespace(array('Lib' => $Lib_path));
         $foo = new \Lib\Foo_2();
         ok( $foo );
     }
     
     public function testSetCacheByRedisCache() {
-        $cache = "\\Cache\\RedisCache";
+        $cache = "\\SDtools\\Cache\\RedisCache";
         $redis = new \Redis();
         $redis->connect('127.0.0.1', 6379);
         $cache::setRedis($redis);
         $cache::SetPREFIX("CacheClassLoader");
         CacheClassLoader::SetCache($cache);
         is(CacheClassLoader::GetCache(),$cache);
-        $Lib_path =  realpath(__DIR__.'/../../');
+        $Lib_path =  realpath(__DIR__.'/../../../');
         CacheClassLoader::addNamespace(array('Lib' => $Lib_path));
         $foo = new \Lib\Foo_3();
         ok( $foo );

@@ -11,7 +11,7 @@
  *
  * @author Steve Luo <info@sd.idv.tw>
  */
-namespace ClassLoader;
+namespace SDtools\ClassLoader;
 use \Exception;
 class SplClassLoader {
     

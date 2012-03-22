@@ -1,5 +1,5 @@
 <?php
-namespace Cache;
+namespace SDtools\Cache;
 /*
  * This file is part of the SDtools package.
  * Copyright (C) 2012 Steve Luo <info@sd.idv.tw>

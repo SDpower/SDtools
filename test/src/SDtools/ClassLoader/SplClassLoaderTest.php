@@ -1,8 +1,8 @@
 <?php
 
-namespace ClassLoader;
+namespace SDtools\ClassLoader;
 
-require_once dirname(__FILE__) . '/../../../src/ClassLoader/SplClassLoader.php';
+require_once dirname(__FILE__) . '/../../../../src/SDtools/ClassLoader/SplClassLoader.php';
 
 /**
  * Test class for SplClassLoader.
@@ -15,7 +15,7 @@ class SplClassLoaderTest extends \PHPUnit_Framework_TestCase {
      * @todo Implement testAddNamespace().
      */
     public function testAddNamespace() {
-        $Lib_path =  realpath(__DIR__.'/../../');
+        $Lib_path =  realpath(__DIR__.'/../../../');
         SplClassLoader::addNamespace(array('Lib' => $Lib_path));
         $foo = new \Lib\Foo();
         ok( $foo );
@@ -26,7 +26,7 @@ class SplClassLoaderTest extends \PHPUnit_Framework_TestCase {
      * @todo Implement testAddPrefix().
      */
     public function testAddPrefix() {
-        $Lib_path =  realpath(__DIR__.'/../../');
+        $Lib_path =  realpath(__DIR__.'/../../../');
         SplClassLoader::addPrefix(array('Lib' => $Lib_path));
         $apple = new \Lib_apple();
         ok( $apple );

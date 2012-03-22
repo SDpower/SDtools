@@ -5,7 +5,7 @@
  * Copyright (C) 2012 Steve Luo <info@sd.idv.tw>
  * WTFPL (Do What The Fuck You Want To Public License)
  */
-namespace ClassLoader;
+namespace SDtools\ClassLoader;
 use \Exception;
 require 'SplClassLoader.php';
 /**
