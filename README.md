@@ -33,12 +33,16 @@ This is some PHP library.
     \SDtools\ClassLoader\CacheClassLoader::addNamespace(array('SDtools' => 'path/src'));
     
 #### Use APC Cache
+    require_once 'SDtools/ClassLoader/CacheClassLoader.php';//change this
+    \SDtools\ClassLoader\CacheClassLoader::addNamespace(array('SDtools' => 'path/src'));
     $cache = "\\SDtools\\Cache\\ApcCache";
     \SDtools\ClassLoader\CacheClassLoader::SetCache($cache);
     \SDtools\ClassLoader\CacheClassLoader::addPrefix(array('Lib' => 'path/Lib'));
     $apple = new \Lib_apple();
 
 #### Use Memcache
+    require_once 'SDtools/ClassLoader/CacheClassLoader.php';//change this
+    \SDtools\ClassLoader\CacheClassLoader::addNamespace(array('SDtools' => 'path/src'));
     $cache = "\\SDtools\\Cache\\MemcacheCache";
     $memcache = new \Memcache;
     $memcache->connect('localhost', 11211) or die ("Could not connect");
@@ -48,6 +52,8 @@ This is some PHP library.
     $apple = new \Lib_apple();
 
 #### Use RedisCache
+    require_once 'SDtools/ClassLoader/CacheClassLoader.php';//change this
+    \SDtools\ClassLoader\CacheClassLoader::addNamespace(array('SDtools' => 'path/src'));
     $cache = "\\SDtools\\Cache\\RedisCache";
     $redis = new \Redis();
     $redis->connect('127.0.0.1', 6379);
