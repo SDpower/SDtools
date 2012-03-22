@@ -21,9 +21,38 @@ This is some PHP library.
 ## Classloader
 ### SplClassLoader
 
-    require_once 'ClassLoader/SplClassLoader.php';//change this
-    \ClassLoader\SplClassLoader::addNamespace(array('Lib' => 'path/Lib'));
+    require_once 'SDtools/ClassLoader/SplClassLoader.php';//change this
+    \SDtools\ClassLoader\SplClassLoader::addNamespace(array('Lib' => 'path/Lib'));
     $foo = new \Lib\Foo();
     
-    \ClassLoader\SplClassLoader::addPrefix(array('Lib' => 'path/Lib'));
+    \SDtools\ClassLoader\SplClassLoader::addPrefix(array('Lib' => 'path/Lib'));
+    $apple = new \Lib_apple();
+
+### CacheClassLoader
+    require_once 'SDtools/ClassLoader/CacheClassLoader.php';//change this
+    \SDtools\ClassLoader\CacheClassLoader::addNamespace(array('SDtools' => 'path/src'));
+    
+#### Use APC Cache
+    $cache = "\\SDtools\\Cache\\ApcCache";
+    \SDtools\ClassLoader\CacheClassLoader::SetCache($cache);
+    \SDtools\ClassLoader\CacheClassLoader::addPrefix(array('Lib' => 'path/Lib'));
+    $apple = new \Lib_apple();
+
+#### Use Memcache
+    $cache = "\\SDtools\\Cache\\MemcacheCache";
+    $memcache = new \Memcache;
+    $memcache->connect('localhost', 11211) or die ("Could not connect");
+    $cache::setMemcache($memcache);
+    \SDtools\ClassLoader\CacheClassLoader::SetCache($cache);
+    \SDtools\ClassLoader\CacheClassLoader::addPrefix(array('Lib' => 'path/Lib'));
+    $apple = new \Lib_apple();
+
+#### Use RedisCache
+    $cache = "\\SDtools\\Cache\\RedisCache";
+    $redis = new \Redis();
+    $redis->connect('127.0.0.1', 6379);
+    $cache::setRedis($redis);
+    $cache::SetPREFIX("CacheClassLoader");
+    \SDtools\ClassLoader\CacheClassLoader::SetCache($cache);
+    \SDtools\ClassLoader\CacheClassLoader::addPrefix(array('Lib' => 'path/Lib'));
     $apple = new \Lib_apple();
